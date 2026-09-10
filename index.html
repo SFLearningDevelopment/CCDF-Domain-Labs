@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<!-- build: 2026091001 -->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CCDV-F Prep Labs &mdash; SF Knowledge Hub</title>
+<style>
+:root{--blue:#1a6eb5;--blue-d:#12507f;--ink:#1a2733;--mut:#5a6b7a;--line:#e2e8ef;--ok:#127a3e;--amber:#8a5a00;--amber-bg:#fff6e0;--bg:#f5f8fb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.badge{background:var(--blue);color:#fff;font-weight:700;font-size:13px;padding:5px 12px;border-radius:20px;letter-spacing:.3px}
+.head small{color:var(--mut)}
+.hero{margin:14px 0 22px}
+.hero h1{font-size:24px;margin:0 0 6px}
+.hero p{color:var(--mut);margin:0;font-size:14.5px}
+.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(20,50,80,.05);margin-bottom:16px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:28px}
+a{color:var(--blue)}
+.crumb{font-size:12.5px;margin-bottom:14px}
+.launch{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:11px 17px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.launch:hover{background:var(--blue-d)}
+.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--line);border-radius:10px;padding:10px 15px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.ghost:hover{border-color:var(--blue)}
+.dchip{display:inline-block;background:#eaf3fb;color:var(--blue-d);font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:11px;margin:0 5px 5px 0}
+.bar-track{background:var(--line);border-radius:6px;height:8px;overflow:hidden}
+.bar-fill{background:var(--blue);height:100%;transition:width .2s}
+.note{font-size:13px;color:var(--mut)}
+.verify{background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13.5px;margin-top:12px}
+.verify b{color:var(--amber)}
+
+.lab{display:flex;gap:16px;align-items:flex-start}
+.lab .n{flex:none;width:38px;height:38px;border-radius:50%;background:#eaf3fb;color:var(--blue-d);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:15px}
+.lab .n.done{background:#eef8f1;color:var(--ok)}
+.lab h2{font-size:17px;margin:0 0 2px}
+.lab .mod{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px;font-weight:700;margin-bottom:6px}
+.lab p{margin:0 0 10px;font-size:14px;color:var(--mut)}
+.labfoot{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:12px}
+.chk{display:flex;align-items:center;gap:8px;font-size:13.5px;cursor:pointer;user-select:none}
+.chk input{width:17px;height:17px;cursor:pointer}
+.prog{font-size:12.5px;color:var(--mut);min-width:96px}
+.overall{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.overall .n{font-size:26px;font-weight:800;color:var(--blue)}
+.overall .l{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="head"><span class="badge">CCDV-F</span>
+    <small>Claude Certified Developer &ndash; Foundations &middot; Hands-on lab track</small></div>
+  <div class="hero">
+    <h1>Prep Labs</h1>
+    <p>Five labs following the five modules of the official course. Working through them gives you the practical
+       grounding the exam questions are written against, so an answer is something you have done rather than
+       something you have read.</p>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 6px">The project</h2>
+    <p class="note" style="margin:0">You will build one thing across all five labs: an internal HR Policy Assistant that answers staff questions from your company's policy documents. Each lab adds a layer to the same project, so by the end you have a single working example rather than five disconnected exercises.</p>
+  </div>
+
+  <div class="box">
+    <div class="overall">
+      <div><div class="n" id="ov-labs">0/5</div><div class="l">Labs complete</div></div>
+      <div><div class="n" id="ov-stages">0/35</div><div class="l">Stages done</div></div>
+      <div style="flex:1;min-width:160px">
+        <div class="bar-track"><div class="bar-fill" id="ov-bar" style="width:0%"></div></div>
+        <p class="note" style="margin:8px 0 0" id="ov-msg">Start with lab 1.</p>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="box">
+    <div class="lab">
+      <div class="n" id="n1">1</div>
+      <div style="flex:1">
+        <div class="mod">Module 1 — MSO Foundations</div>
+        <h2>MSO Foundations</h2>
+        <p>Get a working call, read what comes back, and choose a model on evidence rather than habit.</p>
+        <div><span class="dchip">D5 &middot; Model Selection and Optimisation</span><span class="dchip">D2 &middot; Applications and Integration</span></div>
+        <div class="labfoot">
+          <a class="launch" href="ccdvf-prep-lab-1-mso-foundations.html?v=2026091001">Open lab 1 &rarr;</a>
+          <label class="chk"><input type="checkbox" data-lab="1"> Mark lab complete</label>
+          <span class="prog" id="p1"></span>
+        </div>
+        <div class="bar-track" style="margin-top:10px"><div class="bar-fill" id="b1" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="lab">
+      <div class="n" id="n2">2</div>
+      <div style="flex:1">
+        <div class="mod">Module 2 — Production-Grade Prompting, Agents & Tool Use</div>
+        <h2>Production-Grade Prompting, Agents and Tool Use</h2>
+        <p>Turn a prompt that works once into one that works every time, then give it tools and a loop.</p>
+        <div><span class="dchip">D6 &middot; Prompt and Context Engineering</span><span class="dchip">D8 &middot; Tools and MCPs</span><span class="dchip">D1 &middot; Agents and Workflows</span></div>
+        <div class="labfoot">
+          <a class="launch" href="ccdvf-prep-lab-2-prompting-agents-tools.html?v=2026091001">Open lab 2 &rarr;</a>
+          <label class="chk"><input type="checkbox" data-lab="2"> Mark lab complete</label>
+          <span class="prog" id="p2"></span>
+        </div>
+        <div class="bar-track" style="margin-top:10px"><div class="bar-fill" id="b2" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="lab">
+      <div class="n" id="n3">3</div>
+      <div style="flex:1">
+        <div class="mod">Module 3 — Claude Code, MCP & Integration</div>
+        <h2>Claude Code, MCP and Integration</h2>
+        <p>Set up a project so Claude Code behaves the same way for everyone, and connect it to a real system.</p>
+        <div><span class="dchip">D3 &middot; Claude Code</span><span class="dchip">D8 &middot; Tools and MCPs</span></div>
+        <div class="labfoot">
+          <a class="launch" href="ccdvf-prep-lab-3-claude-code-mcp.html?v=2026091001">Open lab 3 &rarr;</a>
+          <label class="chk"><input type="checkbox" data-lab="3"> Mark lab complete</label>
+          <span class="prog" id="p3"></span>
+        </div>
+        <div class="bar-track" style="margin-top:10px"><div class="bar-fill" id="b3" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="lab">
+      <div class="n" id="n4">4</div>
+      <div style="flex:1">
+        <div class="mod">Module 4 — Production Engineering, Evals & Security</div>
+        <h2>Production Engineering, Evals and Security</h2>
+        <p>Decide what done means, prove it keeps being true, and make sure a bad input cannot do damage.</p>
+        <div><span class="dchip">D4 &middot; Eval, Testing, and Debugging</span><span class="dchip">D7 &middot; Security and Safety</span><span class="dchip">D2 &middot; Applications and Integration</span></div>
+        <div class="labfoot">
+          <a class="launch" href="ccdvf-prep-lab-4-evals-security.html?v=2026091001">Open lab 4 &rarr;</a>
+          <label class="chk"><input type="checkbox" data-lab="4"> Mark lab complete</label>
+          <span class="prog" id="p4"></span>
+        </div>
+        <div class="bar-track" style="margin-top:10px"><div class="bar-fill" id="b4" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="box">
+    <div class="lab">
+      <div class="n" id="n5">5</div>
+      <div style="flex:1">
+        <div class="mod">Module 5 — Accelerators & IP Contribution</div>
+        <h2>Accelerators and IP Contribution</h2>
+        <p>Take what you built, make it faster and cheaper, and package it so other people can use it.</p>
+        <div><span class="dchip">D2 &middot; Applications and Integration</span><span class="dchip">D5 &middot; Model Selection and Optimisation</span><span class="dchip">D3 &middot; Claude Code</span></div>
+        <div class="labfoot">
+          <a class="launch" href="ccdvf-prep-lab-5-accelerators-ip.html?v=2026091001">Open lab 5 &rarr;</a>
+          <label class="chk"><input type="checkbox" data-lab="5"> Mark lab complete</label>
+          <span class="prog" id="p5"></span>
+        </div>
+        <div class="bar-track" style="margin-top:10px"><div class="bar-fill" id="b5" style="width:0%"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 6px">How progress is saved</h2>
+    <p class="note" style="margin:0 0 10px">Your ticks are stored in this browser only. There is no sign-in, so
+       clearing site data or moving to another machine starts you from scratch, and anyone using this browser
+       sees the same progress.</p>
+    <button class="ghost" id="reset">Clear all lab progress</button>
+  </div>
+
+  <div class="foot">Preparation material for the Claude Certified Developer &ndash; Foundations certification, written to follow the five official course modules. Not affiliated with or endorsed by Anthropic. Internal SF Knowledge Hub use.</div>
+</div>
+<script>
+(function(){
+  var KEY="ccdvf_labs_v1", LABS=[{"num": 1, "slug": "ccdvf-prep-lab-1-mso-foundations", "title": "MSO Foundations", "module": "Module 1 \u2014 MSO Foundations", "lead": "Get a working call, read what comes back, and choose a model on evidence rather than habit.", "stages": 7, "domains": ["D5", "D2"]}, {"num": 2, "slug": "ccdvf-prep-lab-2-prompting-agents-tools", "title": "Production-Grade Prompting, Agents and Tool Use", "module": "Module 2 \u2014 Production-Grade Prompting, Agents & Tool Use", "lead": "Turn a prompt that works once into one that works every time, then give it tools and a loop.", "stages": 7, "domains": ["D6", "D8", "D1"]}, {"num": 3, "slug": "ccdvf-prep-lab-3-claude-code-mcp", "title": "Claude Code, MCP and Integration", "module": "Module 3 \u2014 Claude Code, MCP & Integration", "lead": "Set up a project so Claude Code behaves the same way for everyone, and connect it to a real system.", "stages": 7, "domains": ["D3", "D8"]}, {"num": 4, "slug": "ccdvf-prep-lab-4-evals-security", "title": "Production Engineering, Evals and Security", "module": "Module 4 \u2014 Production Engineering, Evals & Security", "lead": "Decide what done means, prove it keeps being true, and make sure a bad input cannot do damage.", "stages": 7, "domains": ["D4", "D7", "D2"]}, {"num": 5, "slug": "ccdvf-prep-lab-5-accelerators-ip", "title": "Accelerators and IP Contribution", "module": "Module 5 \u2014 Accelerators & IP Contribution", "lead": "Take what you built, make it faster and cheaper, and package it so other people can use it.", "stages": 7, "domains": ["D2", "D5", "D3"]}];
+  var TOTAL=LABS.reduce(function(a,l){return a+l.stages;},0);
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
+  function render(){
+    var st=load(), labsDone=0, stagesDone=0;
+    LABS.forEach(function(l){
+      var e=st["lab-"+l.num]||{}, sd=Object.keys(e.stages||{}).filter(function(k){return e.stages[k];}).length;
+      stagesDone+=sd;
+      if(e.complete)labsDone++;
+      var pct=Math.round(sd/l.stages*100);
+      document.getElementById("p"+l.num).textContent=sd+" of "+l.stages+" stages";
+      document.getElementById("b"+l.num).style.width=pct+"%";
+      document.getElementById("n"+l.num).className="n"+(e.complete?" done":"");
+      document.getElementById("n"+l.num).textContent=e.complete?"\u2713":l.num;
+      var cb=document.querySelector('[data-lab="'+l.num+'"]');
+      cb.checked=!!e.complete;
+    });
+    document.getElementById("ov-labs").textContent=labsDone+"/"+LABS.length;
+    document.getElementById("ov-stages").textContent=stagesDone+"/"+TOTAL;
+    document.getElementById("ov-bar").style.width=Math.round(stagesDone/TOTAL*100)+"%";
+    var msg=document.getElementById("ov-msg");
+    if(labsDone===LABS.length)msg.textContent="All five labs complete. Take a prep set and note the domain of anything you get wrong.";
+    else if(stagesDone===0)msg.textContent="Start with lab 1.";
+    else msg.textContent="Next up: lab "+((LABS.filter(function(l){return !(load()["lab-"+l.num]||{}).complete;})[0]||LABS[0]).num)+".";
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-lab]"),function(cb){
+    cb.addEventListener("change",function(){
+      var n=this.getAttribute("data-lab"), st=load();
+      if(!st["lab-"+n])st["lab-"+n]={stages:{}};
+      st["lab-"+n].complete=this.checked;
+      save(st); render();
+    });
+  });
+  document.getElementById("reset").onclick=function(){
+    if(!confirm("Remove all lab progress saved in this browser?"))return;
+    try{localStorage.removeItem(KEY);}catch(e){}
+    render();
+  };
+  render();
+})();
+</script>
+</body></html>
