@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- build: 2026091001 -->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab 4: Production Engineering, Evals and Security &mdash; CCDV-F Prep</title>
+<style>
+:root{--blue:#1a6eb5;--blue-d:#12507f;--ink:#1a2733;--mut:#5a6b7a;--line:#e2e8ef;--ok:#127a3e;--amber:#8a5a00;--amber-bg:#fff6e0;--bg:#f5f8fb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.badge{background:var(--blue);color:#fff;font-weight:700;font-size:13px;padding:5px 12px;border-radius:20px;letter-spacing:.3px}
+.head small{color:var(--mut)}
+.hero{margin:14px 0 22px}
+.hero h1{font-size:24px;margin:0 0 6px}
+.hero p{color:var(--mut);margin:0;font-size:14.5px}
+.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(20,50,80,.05);margin-bottom:16px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:28px}
+a{color:var(--blue)}
+.crumb{font-size:12.5px;margin-bottom:14px}
+.launch{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:11px 17px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.launch:hover{background:var(--blue-d)}
+.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--line);border-radius:10px;padding:10px 15px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.ghost:hover{border-color:var(--blue)}
+.dchip{display:inline-block;background:#eaf3fb;color:var(--blue-d);font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:11px;margin:0 5px 5px 0}
+.bar-track{background:var(--line);border-radius:6px;height:8px;overflow:hidden}
+.bar-fill{background:var(--blue);height:100%;transition:width .2s}
+.note{font-size:13px;color:var(--mut)}
+.verify{background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13.5px;margin-top:12px}
+.verify b{color:var(--amber)}
+
+.stage{border:1px solid var(--line);border-radius:12px;background:#fff;padding:20px;margin-bottom:14px}
+.stage.done{border-color:#bde0c9;background:#fbfefc}
+.stage h3{font-size:16px;margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+.stage h3 .sn{color:var(--blue);font-weight:800;flex:none}
+.goal{font-size:14px;color:var(--mut);margin:0 0 12px}
+.stage ol{margin:0 0 14px;padding-left:20px}
+.stage ol li{margin-bottom:6px;font-size:14.5px}
+.lens{border-left:3px solid var(--blue);background:#f7fbff;border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;margin-bottom:12px}
+.lens b{color:var(--blue-d)}
+.donewhen{display:flex;gap:9px;align-items:flex-start;background:var(--bg);border-radius:8px;padding:11px 13px;font-size:14px;cursor:pointer;user-select:none}
+.donewhen input{width:17px;height:17px;margin-top:2px;flex:none;cursor:pointer}
+.gl{margin:0}
+.gl dt{font-weight:700;font-size:14px;margin-top:10px}
+.gl dd{margin:2px 0 0;font-size:14px;color:var(--mut)}
+.flow{margin:6px 0 0}
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 6px;margin-bottom:10px}
+.sticky .inner{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sticky .t{font-size:13.5px;font-weight:600}
+.sticky .bar-track{flex:1;min-width:120px}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="head"><span class="badge">CCDV-F</span><small>Lab 4 of 5 &middot; Module 4 — Production Engineering, Evals & Security</small></div>
+  <p class="crumb"><a href="index.html?v=2026091001">&larr; All labs</a></p>
+
+  <div class="hero">
+    <h1>Production Engineering, Evals and Security</h1>
+    <p>Decide what done means, prove it keeps being true, and make sure a bad input cannot do damage.</p>
+    <div style="margin-top:10px"><span class="dchip">D4 &middot; Eval, Testing, and Debugging</span><span class="dchip">D7 &middot; Security and Safety</span><span class="dchip">D2 &middot; Applications and Integration</span></div>
+  </div>
+
+  <div class="sticky"><div class="inner">
+    <span class="t" id="prog">0 of 7 stages done</span>
+    <div class="bar-track"><div class="bar-fill" id="bar" style="width:0%"></div></div>
+  </div></div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 8px">Before you start</h2>
+    <p class="note" style="margin:0 0 14px">You will build one thing across all five labs: an internal HR Policy Assistant that answers staff questions from your company's policy documents. Each lab adds a layer to the same project, so by the end you have a single working example rather than five disconnected exercises.</p>
+    <div class="flow"><svg viewBox="0 0 780 92" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lab flow: Define done then Measure it then Handle failure then Contain the damage" style="width:100%;height:auto"><defs><marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8fa8bd"/></marker></defs><rect x="0" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="84.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Define done</text><line x1="174" y1="47" x2="196" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="204" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="288.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Measure it</text><line x1="378" y1="47" x2="400" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="408" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="492.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Handle failure</text><line x1="582" y1="47" x2="604" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="612" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="696.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Contain the damage</text></svg></div>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 4px">Words used in this lab</h2>
+    <dl class="gl"><dt>Eval set</dt><dd>A fixed collection of inputs with the answers you would accept, run automatically so you can tell an improvement from a step backwards.</dd><dt>Trace</dt><dd>A full record of one run: every message, every tool call and its result, why it stopped, and which model and prompt version were used. It is what lets you replay a failure you cannot reproduce.</dd><dt>Prompt injection</dt><dd>Instructions hidden in content your assistant reads, written to make it act for someone else. The defence is limiting what the assistant can do, not asking it to ignore them.</dd><dt>Least privilege</dt><dd>Giving a tool or an account only the access its job needs, so a mistake or an attack reaches as little as possible.</dd><dt>Idempotent</dt><dd>Safe to run more than once. Sending the same request twice leaves you with one result, not two, which is what makes retrying after a timeout safe.</dd></dl>
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 12px">Stages</h2>
+  
+  <div class="stage" id="s1">
+    <h3><span class="sn">1</span><span>Say what done means, using numbers</span></h3>
+    <p class="goal">Replace a vague quality target with one you can check.</p>
+    <ol><li>Write down what an acceptable answer looks like, with two examples and two counter-examples.</li><li>Set the share of answers that must be acceptable.</li><li>Write down which mistakes are unacceptable at any rate. A wrong entitlement figure is not the same as clumsy wording.</li><li>Show it to somebody else and check they would judge the same answers the same way.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D2 &middot; Applications and Integration.</b> Before choosing a model or a prompt, turn the word accurate into a number on a sample. Until it has one, you cannot tell whether a change helped or say when you are finished.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="1"><span><b>Done when:</b> You have a written target with numbers, and somebody else agrees with your judgements.</span></label>
+  </div>
+  <div class="stage" id="s2">
+    <h3><span class="sn">2</span><span>Build the eval set from real failures</span></h3>
+    <p class="goal">Measure the cases that actually break, not the ones you thought of.</p>
+    <ol><li>Collect the questions your assistant has answered badly so far. Keep the exact input.</li><li>Add each one with the answer you would have accepted.</li><li>Run the set and record the score.</li><li>Change one thing in your prompt and run it again. Note whether the score moved.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D4 &middot; Eval, Testing, and Debugging.</b> A question describes an eval set passing at ninety-five per cent while complaints continue. The set is missing the failing cases. Real traffic is where you find them.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="2"><span><b>Done when:</b> Your eval set is built from real failures, and you have two scores to compare.</span></label>
+  </div>
+  <div class="stage" id="s3">
+    <h3><span class="sn">3</span><span>Decide which errors are worth retrying</span></h3>
+    <p class="goal">Handle failures without turning them into worse failures.</p>
+    <ol><li>Make your code produce each error on purpose: a malformed request, a rate limit, a server error.</li><li>Retry the temporary ones with a growing wait and a little randomness, and stop after a set number of attempts.</li><li>Do not retry the malformed request. It will fail the same way every time and should show up as a bug.</li><li>Run twenty workers at once and check they are not all retrying at the same moment.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D2 &middot; Applications and Integration.</b> The dividing line is whether the same request could succeed later. Retrying a malformed request burns your quota and hides a bug behind a retry loop until it turns up as a slowness problem instead.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="3"><span><b>Done when:</b> Temporary errors are retried with a growing wait, and malformed requests are not.</span></label>
+  </div>
+  <div class="stage" id="s4">
+    <h3><span class="sn">4</span><span>Record enough to replay a bad run</span></h3>
+    <p class="goal">Be able to explain a failure you cannot reproduce on demand.</p>
+    <ol><li>For every run, record the messages, every tool call and result, why it stopped, the token counts, and which model and prompt version were used.</li><li>Cause a failure, find its record, and compare it against a run that worked.</li><li>Check you can answer the question a colleague will ask: what happened on this specific request.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D4 &middot; Eval, Testing, and Debugging.</b> A rare failure you cannot reproduce is a visibility problem before it is a model problem. The difference between a failing record and a working one usually points straight at the cause.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="4"><span><b>Done when:</b> You have compared a failing record against a working one and found the difference.</span></label>
+  </div>
+  <div class="stage" id="s5">
+    <h3><span class="sn">5</span><span>Attack your own assistant</span></h3>
+    <p class="goal">See for yourself that instructions in content are not harmless.</p>
+    <ol><li>Put a line into one of your policy documents telling the assistant to ignore its instructions and do something else.</li><li>Ask a question that causes that document to be read. Note what happens.</li><li>Try to defend it by telling the assistant in its system prompt to ignore instructions found in documents. Try again with different wording and see whether it holds.</li><li>Now remove the ability instead: take away the tool the attack depends on, or require approval before it runs.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D7 &middot; Security and Safety.</b> Following the system prompt is a strong tendency, not a boundary. Removing suspicious phrases fails against any rewording. What works is making the attack pointless even when it lands.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="5"><span><b>Done when:</b> You have made an attack succeed, then made it harmless by limiting what the assistant can do.</span></label>
+  </div>
+  <div class="stage" id="s6">
+    <h3><span class="sn">6</span><span>Give every tool the least access it needs</span></h3>
+    <p class="goal">Make sure a mistake reaches as little as possible.</p>
+    <ol><li>List every tool your assistant has and what each one can reach.</li><li>For anything reading data, give it an account that can only read.</li><li>For anything that changes something outside your system, add an approval step or a fixed list of allowed destinations.</li><li>Make one tool safe to run twice by having it accept a caller-supplied key and return the existing result on a repeat.</li><li>Test that: send the same request twice and confirm you end up with one result.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D7 &middot; Security and Safety.</b> Approval belongs where an action cannot be undone or is visible outside your system, not on everything. Gating everything trains people to click through without reading.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="6"><span><b>Done when:</b> Read-only work uses a read-only account, and one tool is safe to run twice.</span></label>
+  </div>
+  <div class="stage" id="s7">
+    <h3><span class="sn">7</span><span>Get the secrets out of everything the model can see</span></h3>
+    <p class="goal">Make sure no credential can leak through the assistant.</p>
+    <ol><li>Search your prompts, your tool descriptions and your committed files for anything resembling a credential.</li><li>Move each one into environment configuration or a secret store and reference it instead.</li><li>Check nothing sensitive appears in your recorded runs, since those get stored and read.</li><li>Confirm no key ever reaches a browser. Anything sent to a browser is public.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D7 &middot; Security and Safety.</b> A credential in a tool description is the worst case: it enters the context on every request and can be read by anything that logs it. A private repository is still one mistake away from exposure.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="7"><span><b>Done when:</b> No credential appears in any prompt, tool description, committed file or stored run record.</span></label>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 8px">Finish this lab</h2>
+    <p class="note" style="margin:0 0 12px">When every stage above is ticked, mark the lab complete. Then try
+       The security, eval and error-handling questions in Intermediate Set 2 and Advanced Set 3 and see which questions you can now answer from something you have actually built.</p>
+    <label class="chk" style="display:flex;align-items:center;gap:8px;font-size:14.5px;cursor:pointer">
+      <input type="checkbox" id="labdone" style="width:18px;height:18px;cursor:pointer">
+      <b>Mark lab 4 complete</b></label>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="ghost" href="ccdvf-prep-lab-3-claude-code-mcp.html?v=2026091001">&larr; Lab 3</a><a class="ghost" href="index.html?v=2026091001">All labs</a><a class="launch" href="ccdvf-prep-lab-5-accelerators-ip.html?v=2026091001">Lab 5: Accelerators and IP Contribution &rarr;</a></div>
+
+  <div class="foot">Preparation material for the Claude Certified Developer &ndash; Foundations certification, written to follow the five official course modules. Not affiliated with or endorsed by Anthropic. Internal SF Knowledge Hub use.</div>
+</div>
+<script>
+(function(){
+  var KEY="ccdvf_labs_v1", LAB="lab-4", COUNT=7;
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
+  function entry(st){if(!st[LAB])st[LAB]={stages:{}};if(!st[LAB].stages)st[LAB].stages={};return st[LAB];}
+  function render(){
+    var e=entry(load()), n=0;
+    for(var i=1;i<=COUNT;i++){
+      var on=!!e.stages[i];
+      if(on)n++;
+      var cb=document.querySelector('[data-stage="'+i+'"]');
+      if(cb)cb.checked=on;
+      var box=document.getElementById("s"+i);
+      if(box)box.className="stage"+(on?" done":"");
+    }
+    document.getElementById("prog").textContent=n+" of "+COUNT+" stages done";
+    document.getElementById("bar").style.width=Math.round(n/COUNT*100)+"%";
+    document.getElementById("labdone").checked=!!e.complete;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-stage]"),function(cb){
+    cb.addEventListener("change",function(){
+      var st=load(), e=entry(st);
+      e.stages[this.getAttribute("data-stage")]=this.checked;
+      save(st); render();
+    });
+  });
+  document.getElementById("labdone").addEventListener("change",function(){
+    var st=load(), e=entry(st);
+    e.complete=this.checked;
+    save(st); render();
+  });
+  render();
+})();
+</script>
+</body></html>
