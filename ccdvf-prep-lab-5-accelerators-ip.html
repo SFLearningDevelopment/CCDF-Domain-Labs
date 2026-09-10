@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- build: 2026091001 -->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab 5: Accelerators and IP Contribution &mdash; CCDV-F Prep</title>
+<style>
+:root{--blue:#1a6eb5;--blue-d:#12507f;--ink:#1a2733;--mut:#5a6b7a;--line:#e2e8ef;--ok:#127a3e;--amber:#8a5a00;--amber-bg:#fff6e0;--bg:#f5f8fb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.badge{background:var(--blue);color:#fff;font-weight:700;font-size:13px;padding:5px 12px;border-radius:20px;letter-spacing:.3px}
+.head small{color:var(--mut)}
+.hero{margin:14px 0 22px}
+.hero h1{font-size:24px;margin:0 0 6px}
+.hero p{color:var(--mut);margin:0;font-size:14.5px}
+.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(20,50,80,.05);margin-bottom:16px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:28px}
+a{color:var(--blue)}
+.crumb{font-size:12.5px;margin-bottom:14px}
+.launch{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:11px 17px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.launch:hover{background:var(--blue-d)}
+.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--line);border-radius:10px;padding:10px 15px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.ghost:hover{border-color:var(--blue)}
+.dchip{display:inline-block;background:#eaf3fb;color:var(--blue-d);font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:11px;margin:0 5px 5px 0}
+.bar-track{background:var(--line);border-radius:6px;height:8px;overflow:hidden}
+.bar-fill{background:var(--blue);height:100%;transition:width .2s}
+.note{font-size:13px;color:var(--mut)}
+.verify{background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13.5px;margin-top:12px}
+.verify b{color:var(--amber)}
+
+.stage{border:1px solid var(--line);border-radius:12px;background:#fff;padding:20px;margin-bottom:14px}
+.stage.done{border-color:#bde0c9;background:#fbfefc}
+.stage h3{font-size:16px;margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+.stage h3 .sn{color:var(--blue);font-weight:800;flex:none}
+.goal{font-size:14px;color:var(--mut);margin:0 0 12px}
+.stage ol{margin:0 0 14px;padding-left:20px}
+.stage ol li{margin-bottom:6px;font-size:14.5px}
+.lens{border-left:3px solid var(--blue);background:#f7fbff;border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;margin-bottom:12px}
+.lens b{color:var(--blue-d)}
+.donewhen{display:flex;gap:9px;align-items:flex-start;background:var(--bg);border-radius:8px;padding:11px 13px;font-size:14px;cursor:pointer;user-select:none}
+.donewhen input{width:17px;height:17px;margin-top:2px;flex:none;cursor:pointer}
+.gl{margin:0}
+.gl dt{font-weight:700;font-size:14px;margin-top:10px}
+.gl dd{margin:2px 0 0;font-size:14px;color:var(--mut)}
+.flow{margin:6px 0 0}
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 6px;margin-bottom:10px}
+.sticky .inner{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sticky .t{font-size:13.5px;font-weight:600}
+.sticky .bar-track{flex:1;min-width:120px}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="head"><span class="badge">CCDV-F</span><small>Lab 5 of 5 &middot; Module 5 — Accelerators & IP Contribution</small></div>
+  <p class="crumb"><a href="index.html?v=2026091001">&larr; All labs</a></p>
+
+  <div class="hero">
+    <h1>Accelerators and IP Contribution</h1>
+    <p>Take what you built, make it faster and cheaper, and package it so other people can use it.</p>
+    <div style="margin-top:10px"><span class="dchip">D2 &middot; Applications and Integration</span><span class="dchip">D5 &middot; Model Selection and Optimisation</span><span class="dchip">D3 &middot; Claude Code</span></div>
+  </div>
+
+  <div class="sticky"><div class="inner">
+    <span class="t" id="prog">0 of 7 stages done</span>
+    <div class="bar-track"><div class="bar-fill" id="bar" style="width:0%"></div></div>
+  </div></div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 8px">Before you start</h2>
+    <p class="note" style="margin:0 0 14px">You will build one thing across all five labs: an internal HR Policy Assistant that answers staff questions from your company's policy documents. Each lab adds a layer to the same project, so by the end you have a single working example rather than five disconnected exercises.</p>
+    <div class="flow"><svg viewBox="0 0 780 92" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lab flow: Find the repeats then Speed it up then Package it then Hand it over" style="width:100%;height:auto"><defs><marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8fa8bd"/></marker></defs><rect x="0" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="84.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Find the repeats</text><line x1="174" y1="47" x2="196" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="204" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="288.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Speed it up</text><line x1="378" y1="47" x2="400" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="408" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="492.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Package it</text><line x1="582" y1="47" x2="604" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="612" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="696.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Hand it over</text></svg></div>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 4px">Words used in this lab</h2>
+    <dl class="gl"><dt>Accelerator</dt><dd>Something you build once and reuse, so the next project starts further along than the last one did.</dd><dt>Versioned prompt</dt><dd>A prompt kept in the repository like code, reviewed when it changes, with a record of which version each deployment ran.</dd><dt>Compaction</dt><dd>Summarising older parts of a conversation into a short running note and keeping only recent turns word for word, so cost and quality stop degrading as it gets longer.</dd><dt>Runbook</dt><dd>A short document telling somebody else how to run, check and fix the thing you built, without asking you.</dd><dt>Model pinning</dt><dd>Naming an exact model version in configuration so an upgrade is a decision you make and can undo, rather than something that happens to you.</dd></dl>
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 12px">Stages</h2>
+  
+  <div class="stage" id="s1">
+    <h3><span class="sn">1</span><span>Find what you would rather not do again</span></h3>
+    <p class="goal">Spot the reusable parts of the last four labs.</p>
+    <ol><li>List everything you built across labs 1 to 4.</li><li>Mark each item as specific to this project or useful on the next one too.</li><li>Pick the three most reusable and write one line on what each saves.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D2 &middot; Applications and Integration.</b> Knowing which parts of a working system are reusable is the difference between finishing a project and building something your team keeps.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="1"><span><b>Done when:</b> You have three items marked reusable, each with a stated saving.</span></label>
+  </div>
+  <div class="stage" id="s2">
+    <h3><span class="sn">2</span><span>Turn your best prompt into a proper artifact</span></h3>
+    <p class="goal">Stop the prompt being something that lives in one person's file.</p>
+    <ol><li>Move your best prompt into the repository as a file that gets reviewed when it changes.</li><li>Pick which version to use from configuration, per environment.</li><li>Record which prompt version each deployment is running, so any answer can be traced back.</li><li>Change it, review the change, and check you can tell afterwards which version produced which answer.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D2 &middot; Applications and Integration.</b> Editing prompts live in a database is the tempting wrong answer. It is fast, and that is the problem: no review and no history is how versions drift apart between environments.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="2"><span><b>Done when:</b> Your prompt is versioned and reviewed, and each deployment records the version it ran.</span></label>
+  </div>
+  <div class="stage" id="s3">
+    <h3><span class="sn">3</span><span>Apply the cost and speed levers together</span></h3>
+    <p class="goal">Make the assistant noticeably cheaper and quicker.</p>
+    <ol><li>Put your unchanging content at the start of the request and cache it.</li><li>Route the easy majority of questions to a fast cheap model, and send only the ones it cannot handle confidently to a stronger one.</li><li>Send anything nobody is waiting on as a batch.</li><li>Shorten what your tools return so only the fields the next decision needs come back.</li><li>Measure cost and speed before and after.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D5 &middot; Model Selection and Optimisation.</b> Shortening what a tool returns matters more than it looks. A long result is charged again on every later turn of the same task, so trimming it once saves repeatedly.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="3"><span><b>Done when:</b> You have before and after figures for cost and speed, and you can name which lever did most.</span></label>
+  </div>
+  <div class="stage" id="s4">
+    <h3><span class="sn">4</span><span>Stop the conversation getting worse as it gets longer</span></h3>
+    <p class="goal">Keep quality steady in a long session.</p>
+    <ol><li>Hold a forty-turn conversation and watch cost, speed and answer quality as it goes.</li><li>Summarise older turns into a short running note, keep the recent ones word for word, and fetch older detail only when it is needed.</li><li>Run the same forty turns again and compare.</li><li>Check the assistant still remembers what the user expects it to remember.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D6 &middot; Prompt and Context Engineering.</b> Starting a fresh conversation fixes the cost but throws away what the user expects you to know, trading a speed problem for a product one.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="4"><span><b>Done when:</b> You have both sets of figures, and the assistant still remembers what it should.</span></label>
+  </div>
+  <div class="stage" id="s5">
+    <h3><span class="sn">5</span><span>Package it so somebody else can use it</span></h3>
+    <p class="goal">Make it reusable without you in the room.</p>
+    <ol><li>Take your most reusable piece and package it: a Skill, a template repository, or a small library.</li><li>Include a short note saying when it applies and when it does not.</li><li>Version it.</li><li>Give it to a colleague with no explanation and watch where they get stuck. Fix that, not what you assumed would confuse them.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D3 &middot; Claude Code.</b> Packaging is what turns a habit one person maintains into something a team owns. The note saying when it applies is what lets it be used at the right moment.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="5"><span><b>Done when:</b> A colleague used it without your help, and you fixed whatever tripped them up.</span></label>
+  </div>
+  <div class="stage" id="s6">
+    <h3><span class="sn">6</span><span>Write the runbook</span></h3>
+    <p class="goal">Let somebody else run and repair it.</p>
+    <ol><li>Write down how to run it, how to tell it is healthy, and the three most likely failures with what to do about each.</li><li>Record which model version is pinned and how to move to a new one safely: test against the eval set first, then promote, with a way back.</li><li>Note where the recorded runs live and how to find one.</li><li>Ask somebody to follow it while you stay silent.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D2 &middot; Applications and Integration.</b> Pinning the model version is what makes an upgrade a decision rather than an event, and the eval set is what turns seems better into evidence.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="6"><span><b>Done when:</b> Somebody else ran and checked the assistant using only your runbook.</span></label>
+  </div>
+  <div class="stage" id="s7">
+    <h3><span class="sn">7</span><span>Check yourself against the exam domains</span></h3>
+    <p class="goal">Find your remaining gaps before the exam does.</p>
+    <ol><li>Go through the eight exam domains and write one sentence on what you built for each.</li><li>Any domain where you cannot write that sentence is a gap. Go back to the lab that covers it.</li><li>Take a prep set and note which domain each wrong answer belongs to.</li><li>Return to the matching stage in these labs rather than only rereading the explanation.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; All eight domains.</b> The exam weights domains unevenly. Applications and Integration is by far the largest, and Model Selection and Optimisation is second, so gaps there cost the most marks.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="7"><span><b>Done when:</b> You have a sentence for every domain, and a list of which stages to revisit.</span></label>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 8px">Finish this lab</h2>
+    <p class="note" style="margin:0 0 12px">When every stage above is ticked, mark the lab complete. Then try
+       Advanced Set 3, then any domain where you scored below seventy per cent and see which questions you can now answer from something you have actually built.</p>
+    <label class="chk" style="display:flex;align-items:center;gap:8px;font-size:14.5px;cursor:pointer">
+      <input type="checkbox" id="labdone" style="width:18px;height:18px;cursor:pointer">
+      <b>Mark lab 5 complete</b></label>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="ghost" href="ccdvf-prep-lab-4-evals-security.html?v=2026091001">&larr; Lab 4</a><a class="ghost" href="index.html?v=2026091001">All labs</a></div>
+
+  <div class="foot">Preparation material for the Claude Certified Developer &ndash; Foundations certification, written to follow the five official course modules. Not affiliated with or endorsed by Anthropic. Internal SF Knowledge Hub use.</div>
+</div>
+<script>
+(function(){
+  var KEY="ccdvf_labs_v1", LAB="lab-5", COUNT=7;
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
+  function entry(st){if(!st[LAB])st[LAB]={stages:{}};if(!st[LAB].stages)st[LAB].stages={};return st[LAB];}
+  function render(){
+    var e=entry(load()), n=0;
+    for(var i=1;i<=COUNT;i++){
+      var on=!!e.stages[i];
+      if(on)n++;
+      var cb=document.querySelector('[data-stage="'+i+'"]');
+      if(cb)cb.checked=on;
+      var box=document.getElementById("s"+i);
+      if(box)box.className="stage"+(on?" done":"");
+    }
+    document.getElementById("prog").textContent=n+" of "+COUNT+" stages done";
+    document.getElementById("bar").style.width=Math.round(n/COUNT*100)+"%";
+    document.getElementById("labdone").checked=!!e.complete;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-stage]"),function(cb){
+    cb.addEventListener("change",function(){
+      var st=load(), e=entry(st);
+      e.stages[this.getAttribute("data-stage")]=this.checked;
+      save(st); render();
+    });
+  });
+  document.getElementById("labdone").addEventListener("change",function(){
+    var st=load(), e=entry(st);
+    e.complete=this.checked;
+    save(st); render();
+  });
+  render();
+})();
+</script>
+</body></html>
