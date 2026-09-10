@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<!-- build: 2026091001 -->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab 2: Production-Grade Prompting, Agents and Tool Use &mdash; CCDV-F Prep</title>
+<style>
+:root{--blue:#1a6eb5;--blue-d:#12507f;--ink:#1a2733;--mut:#5a6b7a;--line:#e2e8ef;--ok:#127a3e;--amber:#8a5a00;--amber-bg:#fff6e0;--bg:#f5f8fb;}
+*{box-sizing:border-box}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+.wrap{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+.head{display:flex;align-items:center;gap:12px;margin-bottom:6px;flex-wrap:wrap}
+.badge{background:var(--blue);color:#fff;font-weight:700;font-size:13px;padding:5px 12px;border-radius:20px;letter-spacing:.3px}
+.head small{color:var(--mut)}
+.hero{margin:14px 0 22px}
+.hero h1{font-size:24px;margin:0 0 6px}
+.hero p{color:var(--mut);margin:0;font-size:14.5px}
+.box{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:0 1px 3px rgba(20,50,80,.05);margin-bottom:16px}
+.foot{text-align:center;color:var(--mut);font-size:12px;margin-top:28px}
+a{color:var(--blue)}
+.crumb{font-size:12.5px;margin-bottom:14px}
+.launch{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:11px 17px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.launch:hover{background:var(--blue-d)}
+.ghost{background:#fff;color:var(--blue);border:1.5px solid var(--line);border-radius:10px;padding:10px 15px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block}
+.ghost:hover{border-color:var(--blue)}
+.dchip{display:inline-block;background:#eaf3fb;color:var(--blue-d);font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:11px;margin:0 5px 5px 0}
+.bar-track{background:var(--line);border-radius:6px;height:8px;overflow:hidden}
+.bar-fill{background:var(--blue);height:100%;transition:width .2s}
+.note{font-size:13px;color:var(--mut)}
+.verify{background:var(--amber-bg);border-left:3px solid var(--amber);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13.5px;margin-top:12px}
+.verify b{color:var(--amber)}
+
+.stage{border:1px solid var(--line);border-radius:12px;background:#fff;padding:20px;margin-bottom:14px}
+.stage.done{border-color:#bde0c9;background:#fbfefc}
+.stage h3{font-size:16px;margin:0 0 4px;display:flex;gap:10px;align-items:baseline}
+.stage h3 .sn{color:var(--blue);font-weight:800;flex:none}
+.goal{font-size:14px;color:var(--mut);margin:0 0 12px}
+.stage ol{margin:0 0 14px;padding-left:20px}
+.stage ol li{margin-bottom:6px;font-size:14.5px}
+.lens{border-left:3px solid var(--blue);background:#f7fbff;border-radius:0 8px 8px 0;padding:11px 14px;font-size:13.5px;margin-bottom:12px}
+.lens b{color:var(--blue-d)}
+.donewhen{display:flex;gap:9px;align-items:flex-start;background:var(--bg);border-radius:8px;padding:11px 13px;font-size:14px;cursor:pointer;user-select:none}
+.donewhen input{width:17px;height:17px;margin-top:2px;flex:none;cursor:pointer}
+.gl{margin:0}
+.gl dt{font-weight:700;font-size:14px;margin-top:10px}
+.gl dd{margin:2px 0 0;font-size:14px;color:var(--mut)}
+.flow{margin:6px 0 0}
+.sticky{position:sticky;top:0;z-index:5;background:var(--bg);padding:10px 0 6px;margin-bottom:10px}
+.sticky .inner{background:#fff;border:1px solid var(--line);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.sticky .t{font-size:13.5px;font-weight:600}
+.sticky .bar-track{flex:1;min-width:120px}
+</style></head>
+<body>
+<div class="wrap">
+  <div class="head"><span class="badge">CCDV-F</span><small>Lab 2 of 5 &middot; Module 2 — Production-Grade Prompting, Agents & Tool Use</small></div>
+  <p class="crumb"><a href="index.html?v=2026091001">&larr; All labs</a></p>
+
+  <div class="hero">
+    <h1>Production-Grade Prompting, Agents and Tool Use</h1>
+    <p>Turn a prompt that works once into one that works every time, then give it tools and a loop.</p>
+    <div style="margin-top:10px"><span class="dchip">D6 &middot; Prompt and Context Engineering</span><span class="dchip">D8 &middot; Tools and MCPs</span><span class="dchip">D1 &middot; Agents and Workflows</span></div>
+  </div>
+
+  <div class="sticky"><div class="inner">
+    <span class="t" id="prog">0 of 7 stages done</span>
+    <div class="bar-track"><div class="bar-fill" id="bar" style="width:0%"></div></div>
+  </div></div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 8px">Before you start</h2>
+    <p class="note" style="margin:0 0 14px">You will build one thing across all five labs: an internal HR Policy Assistant that answers staff questions from your company's policy documents. Each lab adds a layer to the same project, so by the end you have a single working example rather than five disconnected exercises.</p>
+    <div class="flow"><svg viewBox="0 0 780 92" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Lab flow: Structure the prompt then Fix the output shape then Add tools then Close the loop" style="width:100%;height:auto"><defs><marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#8fa8bd"/></marker></defs><rect x="0" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="84.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Structure the prompt</text><line x1="174" y1="47" x2="196" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="204" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="288.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Fix the output shape</text><line x1="378" y1="47" x2="400" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="408" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="492.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Add tools</text><line x1="582" y1="47" x2="604" y2="47" stroke="#8fa8bd" stroke-width="1.5" marker-end="url(#ar)"/><rect x="612" y="24" width="168" height="46" rx="10" fill="#ffffff" stroke="#1a6eb5" stroke-width="1.5"/><text x="696.0" y="52" text-anchor="middle" font-size="14" font-family="-apple-system,Segoe UI,Roboto,sans-serif" fill="#1a2733">Close the loop</text></svg></div>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 4px">Words used in this lab</h2>
+    <dl class="gl"><dt>Few-shot example</dt><dd>A worked example you include in the prompt showing the kind of answer you want. Most useful where the decision is hardest, not where it is already easy.</dd><dt>Prefill</dt><dd>Putting the first few characters of the answer into an assistant entry at the end of your messages list. Claude continues from there, so there is nowhere for a preamble to go.</dd><dt>Tool schema</dt><dd>The description and the list of parameters you give Claude for a function it can ask you to run. It is the contract between your code and the model.</dd><dt>tool_use and tool_result</dt><dd>Claude asks for a function by returning a tool_use block with an id. You run the function and send the answer back in a tool_result block carrying the same id.</dd><dt>Agent loop</dt><dd>Gather what you need, take an action, check the result, and repeat until the work is done or a limit stops you. The checking step is what makes it an agent.</dd></dl>
+  </div>
+
+  <h2 style="font-size:17px;margin:24px 0 12px">Stages</h2>
+  
+  <div class="stage" id="s1">
+    <h3><span class="sn">1</span><span>Give the prompt a clear structure</span></h3>
+    <p class="goal">Stop the model answering from the wrong part of your prompt.</p>
+    <ol><li>Put your instructions, the policy text and the user's question in one undivided block. Ask a question whose answer appears in two places. Note what happens.</li><li>Now separate the three parts with tags such as <instructions>, <policy> and <question>.</li><li>Change your instruction so it refers to a section by name, for example answer using only what appears inside <policy>.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D6 &middot; Prompt and Context Engineering.</b> A question describes exactly this: three things run together and answers drawn from the wrong one. The fix is structure, not a larger model.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="1"><span><b>Done when:</b> Your prompt has named sections, and your instruction refers to one of them by name.</span></label>
+  </div>
+  <div class="stage" id="s2">
+    <h3><span class="sn">2</span><span>Make the output shape reliable</span></h3>
+    <p class="goal">Get an answer your code can parse every time, not most times.</p>
+    <ol><li>Ask for JSON in plain words and run it fifty times. Count how many replies your parser accepts.</li><li>Now define a tool whose parameters are the shape you want, and read the structured input from the tool_use block instead.</li><li>Run the same fifty and count again.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D6 &middot; Prompt and Context Engineering.</b> Asking politely for JSON works most of the time, and that is exactly what makes it risky at volume. Moving the shape into a schema turns a request into a contract.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="2"><span><b>Done when:</b> You have two failure counts, and you can explain why the second approach is more dependable.</span></label>
+  </div>
+  <div class="stage" id="s3">
+    <h3><span class="sn">3</span><span>Aim your examples at the hard decision</span></h3>
+    <p class="goal">Fix a confusion between two similar categories.</p>
+    <ol><li>Sort your policy questions into categories. Find two the model keeps mixing up.</li><li>Add examples that sit right on the line between those two, at least one of each.</li><li>Write the rule that separates them in one plain sentence and put it beside the examples.</li><li>Re-run and see whether the confusion drops.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D6 &middot; Prompt and Context Engineering.</b> Adding more examples of what already works is the tempting wrong answer. Examples belong where the decision is hardest, paired with the rule that explains the difference.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="3"><span><b>Done when:</b> Your prompt has boundary examples plus a one-sentence rule, and you have measured the change.</span></label>
+  </div>
+  <div class="stage" id="s4">
+    <h3><span class="sn">4</span><span>Write two tools that are hard to confuse</span></h3>
+    <p class="goal">Make Claude pick the right function the first time.</p>
+    <ol><li>Define two related tools, for example search_policies and search_benefits.</li><li>Write each description so it says what the tool covers, when to use it, and when to use the other one instead.</li><li>Mark which parameters are required.</li><li>Ask ten questions that sit near the line between the two and count how often the wrong one is chosen.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D8 &middot; Tools and MCPs.</b> Picking the wrong tool is a more common failure than getting the arguments wrong. The sentence that fixes it is the one saying when not to use this tool, and it is the sentence most people leave out.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="4"><span><b>Done when:</b> Both descriptions say when not to use that tool, and you have counted the wrong picks.</span></label>
+  </div>
+  <div class="stage" id="s5">
+    <h3><span class="sn">5</span><span>Run the tool loop by hand once</span></h3>
+    <p class="goal">Understand the exchange before a library hides it from you.</p>
+    <ol><li>Send a question that needs a tool. Look at the response and find stop_reason set to tool_use.</li><li>Find the tool_use block and read its id, name and input.</li><li>Run the function yourself and send the result back in a user message, in a tool_result block carrying that same id.</li><li>Break it on purpose: send back a wrong id and see what happens.</li><li>Make the function throw an error, and return that as a tool result marked as an error rather than as an empty result.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D8 &middot; Tools and MCPs.</b> Questions test that results go back in the user turn and that the id is what pairs a result to its request. They also test that an empty result is worse than an error, because it reads as a successful call that found nothing.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="5"><span><b>Done when:</b> You have completed a full loop by hand and seen what breaks when the id does not match.</span></label>
+  </div>
+  <div class="stage" id="s6">
+    <h3><span class="sn">6</span><span>Close the loop and put limits on it</span></h3>
+    <p class="goal">Let the assistant work on its own without letting it run away.</p>
+    <ol><li>Wrap your calls in a loop: send, check for a tool request, run it, send the result back, repeat.</li><li>Add a check the assistant cannot argue with, such as confirming the answer quotes a real policy section.</li><li>Set a limit on turns, a limit on tokens and a limit on elapsed time.</li><li>Decide what happens when a limit is reached. Returning nothing is not an answer.</li><li>Add a check for the same tool being called twice with the same arguments.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D1 &middot; Agents and Workflows.</b> Limits have to hold whatever the model decides, so they live in your code and not in the prompt. The part most people forget is deciding what happens when a limit is hit.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="6"><span><b>Done when:</b> Your loop has three limits and a defined fallback when one is reached.</span></label>
+  </div>
+  <div class="stage" id="s7">
+    <h3><span class="sn">7</span><span>Decide whether you needed an agent at all</span></h3>
+    <p class="goal">Be able to justify the design you chose.</p>
+    <ol><li>Write down the steps your assistant actually takes for a typical question.</li><li>Ask whether those steps are the same every time. If they are, write the fixed version and compare cost and speed against the loop.</li><li>Write one paragraph saying which you would ship and why.</li></ol>
+    <div class="lens"><b>Exam lens &mdash; D1 &middot; Agents and Workflows.</b> When the steps are known in advance and never vary, a fixed sequence is cheaper, quicker and easier to test. Reaching for an agent by default is the most common overbuild.</div>
+    
+    <label class="donewhen"><input type="checkbox" data-stage="7"><span><b>Done when:</b> You have a written comparison and a stated choice with a reason.</span></label>
+  </div>
+
+  <div class="box">
+    <h2 style="font-size:15px;margin:0 0 8px">Finish this lab</h2>
+    <p class="note" style="margin:0 0 12px">When every stage above is ticked, mark the lab complete. Then try
+       Intermediate Set 2, especially the prompting, tool and agent questions and see which questions you can now answer from something you have actually built.</p>
+    <label class="chk" style="display:flex;align-items:center;gap:8px;font-size:14.5px;cursor:pointer">
+      <input type="checkbox" id="labdone" style="width:18px;height:18px;cursor:pointer">
+      <b>Mark lab 2 complete</b></label>
+  </div>
+
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><a class="ghost" href="ccdvf-prep-lab-1-mso-foundations.html?v=2026091001">&larr; Lab 1</a><a class="ghost" href="index.html?v=2026091001">All labs</a><a class="launch" href="ccdvf-prep-lab-3-claude-code-mcp.html?v=2026091001">Lab 3: Claude Code, MCP and Integration &rarr;</a></div>
+
+  <div class="foot">Preparation material for the Claude Certified Developer &ndash; Foundations certification, written to follow the five official course modules. Not affiliated with or endorsed by Anthropic. Internal SF Knowledge Hub use.</div>
+</div>
+<script>
+(function(){
+  var KEY="ccdvf_labs_v1", LAB="lab-2", COUNT=7;
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{};}catch(e){return {};}}
+  function save(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
+  function entry(st){if(!st[LAB])st[LAB]={stages:{}};if(!st[LAB].stages)st[LAB].stages={};return st[LAB];}
+  function render(){
+    var e=entry(load()), n=0;
+    for(var i=1;i<=COUNT;i++){
+      var on=!!e.stages[i];
+      if(on)n++;
+      var cb=document.querySelector('[data-stage="'+i+'"]');
+      if(cb)cb.checked=on;
+      var box=document.getElementById("s"+i);
+      if(box)box.className="stage"+(on?" done":"");
+    }
+    document.getElementById("prog").textContent=n+" of "+COUNT+" stages done";
+    document.getElementById("bar").style.width=Math.round(n/COUNT*100)+"%";
+    document.getElementById("labdone").checked=!!e.complete;
+  }
+  Array.prototype.forEach.call(document.querySelectorAll("[data-stage]"),function(cb){
+    cb.addEventListener("change",function(){
+      var st=load(), e=entry(st);
+      e.stages[this.getAttribute("data-stage")]=this.checked;
+      save(st); render();
+    });
+  });
+  document.getElementById("labdone").addEventListener("change",function(){
+    var st=load(), e=entry(st);
+    e.complete=this.checked;
+    save(st); render();
+  });
+  render();
+})();
+</script>
+</body></html>
