@@ -37,6 +37,13 @@ a{color:var(--blue)}
 .file .fname .tag{font-size:11px;font-weight:700;letter-spacing:.3px;text-transform:uppercase}
 .file .tag.new{color:var(--ok)}.file .tag.edit{color:var(--amber)}
 .difflegend{font-size:11.5px;color:var(--mut);margin:6px 0 0}
+.deepdive{border:1px solid #cfe2f2;background:#f7fbff;border-radius:12px;padding:18px 20px;margin:16px 0 14px}
+.deepdive h4{font-size:15.5px;margin:0 0 8px}
+.deepdive h5{font-size:14px;margin:20px 0 6px;color:var(--blue-d)}
+.deepdive p{font-size:14px;margin:0 0 9px}
+.deepdive ul{font-size:14px;margin:0 0 9px;padding-left:20px}
+.deepdive code{background:#eaf3fb;border-radius:4px;padding:1px 5px;font-size:12.8px}
+.deepdive .file{margin:10px 0 12px}
 .difflegend .a{color:#127a3e;font-weight:700}
 .difflegend .d{color:#b5341a;font-weight:700;text-decoration:line-through}.file .tag.run{color:var(--blue-d)}
 pre{margin:0;background:var(--code);color:#e6eef6;border-radius:0 0 8px 8px;padding:14px 16px;overflow-x:auto;font-size:12.9px;line-height:1.55;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -189,7 +196,63 @@ Your own numbers will differ. What matters is that run 2 is higher, and that
 the picks which changed are the questions mentioning travel.</div>
     <div class="lens"><b>Exam lens &mdash; D8 &middot; Tools and MCPs.</b> Picking the wrong tool is a more common failure than malforming arguments. The sentence that fixes it is the one saying when not to use this tool, and it is the one most people leave out.</div>
     
-    <label class="donewhen"><input type="checkbox" data-stage="4"><span><b>Done when:</b> You have run <code>tool_test.py</code> twice, the second score is higher than the first, and each description names the other tool by name.</span></label>
+    <div class="deepdive">
+<h4>Three ways to remove the wrong-tool failure</h4>
+<p>When two tool descriptions overlap, a wrong pick is always possible. Better descriptions
+lower the rate; they never floor it at zero.</p>
+<p><b>What does floor it at zero is removing the choice.</b> A choice the model never makes
+cannot be made wrongly. Each option below takes the choice away at a different point &mdash;
+before the model sees it, inside a validated field, or by never offering the alternative.</p>
+<div class="langbar"><span class="note" style="margin-right:2px">Language:</span><button class="langbtn" data-set="py">Python</button><button class="langbtn" data-set="ts">TypeScript</button></div>
+
+<h5>1. Classify, then dispatch in code</h5>
+<p>The model classifies. Your code selects.</p>
+<div class="codepanel" data-lang="py"><div class="file"><div class="fname"><span>answer.py</span><span class="tag run">option</span></div><pre><code><span class="d-add">from ask import route          # returns &quot;leave&quot; | &quot;expenses&quot; | &quot;neither&quot; via enum</span><span class="d-add">&nbsp;</span><span class="d-add">def answer(question: str) -&gt; str:</span><span class="d-add">    category = route(question)</span><span class="d-add">    if category == &quot;neither&quot;:</span><span class="d-add">        return &quot;That is not covered by either policy.&quot;</span><span class="d-add">    return POLICIES[category]          # your code selects, not the model</span></code></pre></div></div><div class="codepanel" data-lang="ts"><div class="file"><div class="fname"><span>answer.ts</span><span class="tag run">option</span></div><pre><code><span class="d-add">import { route } from &quot;./ask.js&quot;;</span><span class="d-add">&nbsp;</span><span class="d-add">export async function answer(question: string): Promise&lt;string&gt; {</span><span class="d-add">  const category = await route(question);</span><span class="d-add">  if (category === &quot;neither&quot;) return &quot;That is not covered by either policy.&quot;;</span><span class="d-add">  return POLICIES[category];          // your code selects, not the model</span><span class="d-add">}</span></code></pre></div></div>
+<p><code>TOOLS</code> is never passed, so there is no tool call to get wrong. The
+<code>enum</code> on <code>route()</code> is what makes <code>POLICIES[category]</code> safe
+&mdash; the value can only ever be one of three strings.</p>
+<p>The model still decides the category, so a misclassification is still possible. What you
+removed is a second independent chance to go wrong: previously the model classified
+<i>and</i> picked a tool, and either step could fail.</p>
+
+<h5>2. One tool with a constrained parameter</h5>
+<p>The model still decides, but it fills a field instead of choosing between descriptions.</p>
+<div class="codepanel" data-lang="py"><div class="file"><div class="fname"><span>tools.py</span><span class="tag run">option</span></div><pre><code><span class="d-add">SEARCH_TOOL = {</span><span class="d-add">    &quot;name&quot;: &quot;search_policy&quot;,</span><span class="d-add">    &quot;description&quot;: &quot;Look up the policy that answers a staff question.&quot;,</span><span class="d-add">    &quot;input_schema&quot;: {</span><span class="d-add">        &quot;type&quot;: &quot;object&quot;,</span><span class="d-add">        &quot;properties&quot;: {</span><span class="d-add">            &quot;category&quot;: {</span><span class="d-add">                &quot;type&quot;: &quot;string&quot;,</span><span class="d-add">                &quot;enum&quot;: [&quot;leave&quot;, &quot;expenses&quot;],</span><span class="d-add">                &quot;description&quot;: (&quot;leave: days counted against an allowance. &quot;</span><span class="d-add">                                &quot;expenses: money being paid back.&quot;),</span><span class="d-add">            },</span><span class="d-add">            &quot;query&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;description&quot;: &quot;The question in their own words.&quot;},</span><span class="d-add">        },</span><span class="d-add">        &quot;required&quot;: [&quot;category&quot;, &quot;query&quot;],</span><span class="d-add">    },</span><span class="d-add">}</span></code></pre></div></div><div class="codepanel" data-lang="ts"><div class="file"><div class="fname"><span>tools.ts</span><span class="tag run">option</span></div><pre><code><span class="d-add">export const SEARCH_TOOL = {</span><span class="d-add">  name: &quot;search_policy&quot;,</span><span class="d-add">  description: &quot;Look up the policy that answers a staff question.&quot;,</span><span class="d-add">  input_schema: {</span><span class="d-add">    type: &quot;object&quot; as const,</span><span class="d-add">    properties: {</span><span class="d-add">      category: {</span><span class="d-add">        type: &quot;string&quot;,</span><span class="d-add">        enum: [&quot;leave&quot;, &quot;expenses&quot;],</span><span class="d-add">        description: &quot;leave: days counted against an allowance. &quot; +</span><span class="d-add">                     &quot;expenses: money being paid back.&quot;,</span><span class="d-add">      },</span><span class="d-add">      query: { type: &quot;string&quot;, description: &quot;The question in their own words.&quot; },</span><span class="d-add">    },</span><span class="d-add">    required: [&quot;category&quot;, &quot;query&quot;],</span><span class="d-add">  },</span><span class="d-add">};</span></code></pre></div></div>
+<p>Two overlapping descriptions became one description plus a two-value <code>enum</code>.
+The decision is now made against a short definition sitting beside the field rather than by
+comparing two paragraphs, and the schema validates the answer before it reaches you.</p>
+<p>This is the smallest change from a two-tool setup.</p>
+
+<h5>3. Offer one tool</h5>
+<p>Send only the tool that applies.</p>
+<div class="codepanel" data-lang="py"><div class="file"><div class="fname"><span>scoped.py</span><span class="tag run">option</span></div><pre><code><span class="d-add">category = &quot;leave&quot;          # from somewhere outside the model - see below</span><span class="d-add">&nbsp;</span><span class="d-add">available = [t for t in TOOLS if t[&quot;name&quot;] == f&quot;search_{category}&quot;]</span><span class="d-add"># a one-item list: just the search_leave definition</span><span class="d-add">&nbsp;</span><span class="d-add">r = client.messages.create(</span><span class="d-add">    model=MODEL,</span><span class="d-add">    max_tokens=300,</span><span class="d-add">    temperature=0,</span><span class="d-add">    system=SYSTEM,</span><span class="d-add">    tools=available,                    # only one tool is even visible</span><span class="d-add">    tool_choice={&quot;type&quot;: &quot;any&quot;},        # must use it</span><span class="d-add">    messages=[{&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: question}],</span><span class="d-add">)</span></code></pre></div></div><div class="codepanel" data-lang="ts"><div class="file"><div class="fname"><span>scoped.ts</span><span class="tag run">option</span></div><pre><code><span class="d-add">const category = &quot;leave&quot;;        // from somewhere outside the model - see below</span><span class="d-add">&nbsp;</span><span class="d-add">const available = TOOLS.filter((t) =&gt; t.name === `search_${category}`);</span><span class="d-add">// a one-item list: just the search_leave definition</span><span class="d-add">&nbsp;</span><span class="d-add">const r = await client.messages.create({</span><span class="d-add">  model: MODEL,</span><span class="d-add">  max_tokens: 300,</span><span class="d-add">  temperature: 0,</span><span class="d-add">  system: SYSTEM,</span><span class="d-add">  tools: available,                    // only one tool is even visible</span><span class="d-add">  tool_choice: { type: &quot;any&quot; },        // must use it</span><span class="d-add">  messages: [{ role: &quot;user&quot;, content: question }],</span><span class="d-add">});</span></code></pre></div></div>
+<p>The wrong tool cannot be chosen because it was never sent.</p>
+<p><b>But <code>category</code> has to come from somewhere, and that decides whether this is a
+real option.</b> If you obtain it by asking the model &mdash; <code>category = route(question)</code>
+&mdash; you have done option 1 and then added a tool call on top. The model already told you the
+answer; wrapping it in a round trip costs a request and gains nothing.</p>
+<p>It stands on its own only when something other than the model supplies the category:</p>
+<ul>
+<li>the user chose &quot;Leave&quot; from a dropdown before typing</li>
+<li>the ticket arrived in the <code>#hr-leave</code> channel</li>
+<li>the request came through a URL like <code>/help/expenses</code></li>
+<li>a rule in your code matched &mdash; anything from the finance system is expenses</li>
+</ul>
+<p>In each of those, the category is a fact you held before the conversation began. You are not
+classifying; you are scoping what the model can reach.</p>
+
+<h5>What does not work</h5>
+<p>Raising temperature, retrying until two runs agree, or strengthening the descriptions
+further. All three treat a determinism problem with a probabilistic control.</p>
+
+<h5>Choosing between them</h5>
+<p>Option 1 is strongest when the model must classify anyway. Option 2 is the least disruptive
+to an existing two-tool setup. Option 3 is best when the scope is already known from outside
+&mdash; and collapses into option 1 when it is not.</p>
+<p>None of the three removes classification error itself; they remove the <i>selection</i> error
+that sits on top of it. The general move: when a requirement must hold exactly, take it out of
+the model rather than making the model more reliable.</p>
+</div><label class="donewhen"><input type="checkbox" data-stage="4"><span><b>Done when:</b> You have run <code>tool_test.py</code> twice, the second score is higher than the first, and each description names the other tool by name.</span></label>
   </div>
   <div class="stage" id="s5">
     <h3><span class="sn">5</span><span>Run the tool loop by hand once</span></h3>
